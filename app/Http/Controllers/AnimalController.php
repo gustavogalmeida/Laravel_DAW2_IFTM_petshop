@@ -3,82 +3,66 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Animal;
 
 class AnimalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /* 
+    *   Aqui no metodo Index do controller eu instancio as classes e crio
+    *   uma instancia recebendo todos da classe
+    */
     public function index()
     {
-        //
+        $animal =  new Animal();
+        $animais = Animal::All();
+        return view ("animal.index", [
+            "animal" => $animal,
+            "animais" => $animais
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    *   Metodo store para verficar se tem um id (editando), se não tiver
+    *   se não tiver id ele criara nova instancia da Classe animal        
+    */
     public function store(Request $request)
     {
-        //
+        if ($request->get("id") != ""){
+            $animal = Animal::Find($request->get("id"));
+        } else {
+            $animal = new Animal();
+        }
+        $animal->nomeanimal = $request->get("nomeanimal");
+        $animal->nomedono = $request->get("nomedono");
+        $animal->raca = $request->get("raca");
+        $animal->datanascimento = $request->get("datanascimento");
+        $animal->save();
+        $request->section()->flash("status", "salvo");
+        return redirect("/animal");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        
     }
 }
