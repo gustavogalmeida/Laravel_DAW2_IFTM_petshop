@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Especie;
 
 return new class extends Migration
 {
@@ -13,8 +14,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('animals', function (Blueprint $table) {
+        Schema::create('animal', function (Blueprint $table) {
             $table->id();
+            $table->string("nomeanimal", 100);
+            $table->string("nomedono", 100);
+            $table->string("raca", 50);
+            $table->foreignFor (Especie::class);
+            $table->foreign("especie_id")->references("id")->on("especie");
+            $table->date("datanascimento");
+            $table->integer("idade");
             $table->timestamps();
         });
     }
@@ -26,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('animals');
+        Schema::dropIfExists('animal');
     }
 };
