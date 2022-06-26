@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("nomeanimal", 100);
             $table->string("nomedono", 100);
             $table->string("raca", 50);
-            $table->foreignFor (Especie::class);
+            $table->foreignIdFor (Especie::class);
             $table->foreign("especie_id")->references("id")->on("especie");
             $table->date("datanascimento");
             $table->integer("idade");
