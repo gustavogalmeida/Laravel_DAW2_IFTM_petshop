@@ -3,82 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Especie;
 
 class EspecieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /* 
+    *   Aqui no metodo Index do controller eu instancio as classes e crio
+    *   uma instancia recebendo todos da classe
+    */
     public function index()
     {
-        //
+        $especie =  new Especie();
+        $especies = Especie::All();
+        return view ("especie.index", [
+            "especie" => $especie,
+            "especies" => $especies
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        if ($request->get("id") != ""){
+            $especie = Especie::Find($request->get("id"));
+        } else {
+            $especie = new Especie();
+        }
+        $especie->especie = $request->get("especie");
+        $especie->save();
+        $request->section()->flash("status", "salvo");
+        return redirect("/especie");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $especie = Especie::Find($id);
+        $especies = Especie::All();
+        return view ("especie.index", [
+            "especie" => $especie,
+            "especies" => $especies
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy($id, Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        Especie::Destroy($id);
+        $request->section()->flash("status", "excluido");
+        return redirect ("/especie");
     }
 }

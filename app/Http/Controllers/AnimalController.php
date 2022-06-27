@@ -21,15 +21,6 @@ class AnimalController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        
-    }
-
-    /*
-    *   Metodo store para verficar se tem um id (editando), se não tiver
-    *   se não tiver id ele criara nova instancia da Classe animal        
-    */
     public function store(Request $request)
     {
         if ($request->get("id") != ""){
@@ -46,23 +37,20 @@ class AnimalController extends Controller
         return redirect("/animal");
     }
 
-    public function show($id)
-    {
-        
-    }
-
     public function edit($id)
     {
-        
+        $animal = Animal::Find($id);
+        $animais = Animal::All();
+        return view ("animal.index", [
+            "animal" => $animal,
+            "animais" => $animais
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function destroy($id, Request $request)
     {
-        
-    }
-
-    public function destroy($id)
-    {
-        
+        Animal::Destroy($id);
+        $request->section()->flash("status", "excluido");
+        return redirect ("/animal");
     }
 }
