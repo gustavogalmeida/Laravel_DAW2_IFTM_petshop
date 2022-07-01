@@ -2,8 +2,8 @@
  Projeto com Laravel usando MVC e bootstrap
 
 
-Para funcionar 
-# instalar xamp -, rodar mysql e apache
-# criar banco de dados e rodar migrations
-# composer update
-# .env exemplo e configurar seu .env
+# Para funcionar 
+- instalar xamp -, rodar mysql e apache
+- criar banco de dados e rodar migrations
+- composer update
+- .env exemplo e configurar seu .env
