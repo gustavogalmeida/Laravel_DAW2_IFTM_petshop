@@ -7,11 +7,11 @@
     <form action="/especie" method="POST" class="row">
         <div class="form-group col-10">
             <label for="especie">Especie</label>
-            <input type="text" name="especie" class="form-control" value="{{ $especie->especie }}" />      
+            <input type="text" name="especie" class="form-control" value="{{ $especie->especie }}" required />      
         </div>
         <div class="form-group col-2">
             @csrf
-            <input type="hidden" name="id" vlaue="{{ $especie->id }}" />
+            <input type="hidden" name="id" value="{{ $especie->id }}" />
 
             <a href="/especie" class="btn btn-primary" style="margin-top: 24px">
                 <i class="bi bi-plus-square"></i>

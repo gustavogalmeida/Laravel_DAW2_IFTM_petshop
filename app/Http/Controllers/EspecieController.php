@@ -31,7 +31,7 @@ class EspecieController extends Controller
         }
         $especie->especie = $request->get("especie");
         $especie->save();
-        $request->section()->flash("status", "salvo");
+        $request->session()->flash("status", "salvo");
         return redirect("/especie");
     }
 
@@ -48,7 +48,7 @@ class EspecieController extends Controller
     public function destroy($id, Request $request)
     {
         Especie::Destroy($id);
-        $request->section()->flash("status", "excluido");
+        $request->session()->flash("status", "excluido");
         return redirect ("/especie");
     }
 }
